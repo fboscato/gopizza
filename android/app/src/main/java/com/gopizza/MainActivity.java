@@ -1,4 +1,4 @@
-package com.testeemulador;
+package com.gopizza;
 
 import android.os.Build;
 import android.os.Bundle;

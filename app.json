@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "testeemulador",
-    "slug": "testeemulador",
+    "name": "gopizza",
+    "slug": "gopizza",
     "version": "1.0.0",
     "assetBundlePatterns": [
       "**/*"

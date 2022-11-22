@@ -1,10 +1,9 @@
 import React from "react";
-import { Container } from "./styles";
-
-export function SignIn() {
-  return (
-    <Container>
-
-    </Container>
-  );
+import { Container } from "./style";
+export function SignIn(){
+    return(
+<Container>
+    
+</Container>
+    )
 }

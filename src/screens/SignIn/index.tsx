@@ -1,6 +1,7 @@
 import React from "react";
 import { Container } from "./style";
 import { Input } from "@components/Input";
+import { Button } from "@components/Button";
 export function SignIn() {
     return (
         <Container>
@@ -15,6 +16,10 @@ export function SignIn() {
                 type="secondary"
                 secureTextEntry
 
+            />
+            <Button
+            title="Entrar"
+            type="secundary"
             />
         </Container>
     )

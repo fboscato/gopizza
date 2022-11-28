@@ -4,7 +4,7 @@ import { StatusBar } from 'expo-status-bar'
 import { useFonts, DMSans_400Regular } from '@expo-google-fonts/dm-sans'
 import { DMSerifDisplay_400Regular } from '@expo-google-fonts/dm-serif-display'
 import { ThemeProvider } from 'styled-components/native'
-import { } from '@hooks/auth'
+import { AuthProvider } from '@hooks/auth'
 
 import theme from './src/theme';
 import { SignIn } from '@screens/SignIn'

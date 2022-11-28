@@ -1,9 +1,10 @@
 import React from "react";
-import { Container, Content, Tile, Brand } from "./style";
+import { KeyboardAvoidingView, Platform } from 'react-native'
+
 import { Input } from "@components/Input";
 import { Button } from "@components/Button";
 import branfImg from '@assets/brand.png'
-import { KeyboardAvoidingView, Platform } from 'react-native'
+import { Container, Content, Tile, Brand, ForgotPasswordButton, ForgotPasswordLabel } from "./style";
 export function SignIn() {
     return (
         <Container>
@@ -23,6 +24,11 @@ export function SignIn() {
                         secureTextEntry
 
                     />
+                    <ForgotPasswordButton>
+                        <ForgotPasswordLabel>
+                            Esqueci minha senha
+                        </ForgotPasswordLabel>
+                    </ForgotPasswordButton>
                     <Button
                         title="Entrar"
                         type="secundary"

@@ -1,7 +1,18 @@
 import React, { createContext, useContext, ReactNode, useState } from "react";
 import auth from '@react-native-firebase/auth';
 import { Alert } from "react-native";
+import firestore from '@react-native-firebase/firestore'
+
+type User = {
+  id: string
+  name: string
+  isAdmin: boolean
+}
+
 type AuthContextDate = {
+  signIn: (email: string, password: string) => Promise<void>;
+  isLogging: boolean
+  user: User | null
 
 }
 type AuthProviderPropos = {
@@ -11,6 +22,7 @@ type AuthProviderPropos = {
 export const AuthContext = createContext({} as AuthContextDate);
 
 function AuthProvider({ children }: AuthProviderPropos) {
+  const [user, setUser] = useState<User | null>(null)
   const [isLogging, setIsLogging] = useState(false);
   async function signIn(email: string, password: string) {
     if (!email || !password) {
@@ -20,7 +32,23 @@ function AuthProvider({ children }: AuthProviderPropos) {
     auth()
       .signInWithEmailAndPassword(email, password)
       .then(account => {
+        firestore()
+          .collection('user')
+          .doc(account.user.uid)
+          .get()
+          .then(profile => {
+            const { name, isAdmin } = profile.data() as User;
+            if (profile.exists) {
+              const userData = {
+                id: account.user.uid,
+                name,
+                isAdmin
+              }
+
+            }
+          })
         console.log(account);
+
       })
       .catch(error => {
         const { code } = error;
@@ -35,15 +63,15 @@ function AuthProvider({ children }: AuthProviderPropos) {
       .finally(() => setIsLogging(false))
   }
   return (
-    <AuthContext.Provider value={{}}>
+    <AuthContext.Provider value={{ signIn, isLogging }}>
       {children}
     </AuthContext.Provider>
   )
 }
 
-function userAuth() {
+function useAuth() {
   const context = useContext(AuthContext)
   return context
 }
 
-export { AuthProvider, userAuth }
+export { AuthProvider, useAuth }

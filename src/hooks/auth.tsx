@@ -1,4 +1,4 @@
-import React, { createContext, useContext, ReactNode, useState } from "react";
+import React, { createContext, useContext, ReactNode, useState, useEffect } from "react";
 import auth from '@react-native-firebase/auth';
 import { Alert } from "react-native";
 import firestore from '@react-native-firebase/firestore'
@@ -45,7 +45,7 @@ function AuthProvider({ children }: AuthProviderPropos) {
                 name,
                 isAdmin
               }
-              console.log(userData)
+
               await AsyncStorage.setItem(USER_COLLECTION, JSON.stringify(userData))
               setUser(userData)
             }
@@ -63,6 +63,20 @@ function AuthProvider({ children }: AuthProviderPropos) {
       })
       .finally(() => setIsLogging(false))
   }
+  async function loadUserStorageData() {
+    setIsLogging(true)
+    const storedUser = await AsyncStorage.getItem(USER_COLLECTION)
+    if (storedUser) {
+      const userData = JSON.parse(storedUser) as User;
+      console.log(userData)
+      setUser(userData);
+
+    }
+    setIsLogging(false)
+  }
+  useEffect(() => {
+    loadUserStorageData()
+  }, [])
   return (
     <AuthContext.Provider value={{ signIn, isLogging, user }}>
       {children}
